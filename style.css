@@ -1,0 +1,181 @@
+:root {
+    --white: #FFFFFF;
+    --dark: #030303;
+    --gold: #9D8665; 
+  }
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.title {
+    font-family: "Forum";
+    color: var(--white);
+    font-weight: normal;
+    font-size: 28px;
+    letter-spacing: 5px;
+    line-height: 31px;
+    text-transform: uppercase;
+}
+
+.thin-font {
+    font-family: Roboto;
+    font-weight: 200;
+    font-size: 22px;
+    line-height: 26px;
+    letter-spacing: 2px;
+    color: var(--white);
+}
+
+.nav-item {
+    line-height: 50px;
+}
+
+
+/*---------------header---*/
+
+.header {
+    background-color: var(--dark);
+}
+
+.header-container {
+    height: 150px;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.nav-header {
+    width: 775px;
+}
+
+.nav-list-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 199px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-img {
+    height: 26px;
+    width: 49px;
+    background-image: url("assets/svg/logo.svg");
+}
+
+/*--------footer-------*/
+
+.footer {
+    background-color: var(--dark);
+    height: 265px;
+    border-bottom: solid #666666;
+}
+
+.footer-container {
+    height: 135px;
+    position: relative;
+    top: 75px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-logo {
+    align-self: flex-start;
+    height: 50px;
+}
+
+.nav-footer {
+    width: 363px;
+    height: 128px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 256px;
+}
+
+.nav-list-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.social {
+    width: 340px;
+    align-self: flex-end;
+}
+
+.social-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.youtube {
+    background-image: url(assets/svg/social_youtube.svg);
+}
+
+.insta {
+    background-image: url(assets/svg/social_instagram.svg);
+}
+
+.facebook {
+    background-image: url(assets/svg/social_facebook.svg);
+}
+
+.twitter {
+    background-image: url(assets/svg/social_twitter.svg);
+}
+
+.pinterest {
+    background-image: url(assets/svg/social_pinterest.svg);
+}
+
+.social-link {
+    display: block;
+    width: 48px;
+    height: 48px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    border: solid 1px var(--white);
+}
+
+/*--------footer-rss----*/
+
+.footer-rss {
+    background-color:var(--dark);
+    height: 124px;
+}
+
+.footer-rss-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.footer-rss-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.center {
+    position: absolute;
+    transform: translateX(50%);
+    right: 50%;
+}
