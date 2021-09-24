@@ -1,82 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-    <title>museum</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@100;300;400;500;700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="./css/swiper-bundle.css" />
+
+	<title>museum</title>
 </head>
+
 <body>
-    <header class="header">
-        <div class="container header-container">
-            <div class="logo">
-                <div class="logo-img"></div>
-                <h1 class="logo-heading title">Louvre</h1>
-            </div>
-            <nav class="nav-header">
-                <ul class="nav-list-header">
-                    <li class="nav-item thin-font">Visiting</li>
-                    <li class="nav-item thin-font">Explore</li>
-                    <li class="nav-item thin-font">Video</li>
-                    <li class="nav-item thin-font">Gallery</li>
-                    <li class="nav-item thin-font">Tickets</li>
-                    <li class="nav-item thin-font">Contacts</li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <main class="main">
-        <section class="section"></section>
-        <section class="section"></section>
-        <section class="section"></section>
-        <section class="section"></section>
-        <section class="section"></section>
-        <section class="section"></section>
-    </main>
-    <footer class="footer">
-        <div class="container footer-container">
-            <div class="logo footer-logo">
-                <div class="logo-img"></div>
-                <span class="logo-heading title">Louvre</span>
-            </div>
-            <nav class="nav-footer">
-                <ul class="nav-list-footer">
-                    <li class="nav-item thin-font">Visiting</li>
-                    <li class="nav-item thin-font">Explore</li>
-                    <li class="nav-item thin-font">Video</li>
-                </ul>
-                <ul class="nav-list-footer">
-                    <li class="nav-item thin-font">Gallery</li>
-                    <li class="nav-item thin-font">Tickets</li>
-                    <li class="nav-item thin-font">Contacts</li>
-                </ul>
-            </nav>
-            <div class="social">
-                <ul class="social-list">
-                    <li class="social-item"><a href="" class="social-link youtube"></a></li>
-                    <li class="social-item"><a href="" class="social-link insta"></a></li>
-                    <li class="social-item"><a href="" class="social-link facebook"></a></li>
-                    <li class="social-item"><a href="" class="social-link twitter"></a></li>
-                    <li class="social-item"><a href="" class="social-link pinterest"></a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-    <div class="footer-rss">
-        <div class="container footer-rss-container">
-        <ul class="footer-rss-list">
-            <li class="thin-font">&#169; 2021</li>
-            <li class="thin-font center">The Rolling Scopes School</li>
-            <li class="thin-font">Ilya Dzyuin</li>
-        </ul>
-        </div>
-        </div>
-    </div>
+	<header class="header">
+		<div class="container header-container">
+			<div class="logo">
+				<div class="logo-img"></div>
+				<h1 class="logo-heading logo-title">Louvre</h1>
+			</div>
+			<nav class="nav-header">
+				<ul class="nav-list-header">
+					<li class="nav-item small-link-font"><a href="#visiting" class="nav-link">Visiting</a></li>
+					<li class="nav-item small-link-font"><a href="#explore" class="nav-link">Explore</a></li>
+					<li class="nav-item small-link-font"><a href="#video" class="nav-link">Video</a></li>
+					<li class="nav-item small-link-font"><a href="#gallery" class="nav-link">Gallery</a></li>
+					<li class="nav-item small-link-font"><a href="#tickets" class="nav-link">Tickets</a></li>
+					<li class="nav-item small-link-font"><a href="#contacts" class="nav-link">Contacts</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+	<main class="main">
+		<section class="welcome section">
+			<div class="container welcome-container">
+				<div class="slider-gradient slider-container"></div>
+				<div class="slider-container">
+					<div class="swiper">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide"><img src="./assets/img/welcome-slider/1.jpg" alt=""></div>
+							<div class="swiper-slide"><img src="./assets/img/welcome-slider/2.jpg" alt=""></div>
+							<div class="swiper-slide"><img src="./assets/img/welcome-slider/3.jpg" alt=""></div>
+							<div class="swiper-slide"><img src="./assets/img/welcome-slider/4.jpg" alt=""></div>
+							<div class="swiper-slide"><img src="./assets/img/welcome-slider/5.jpg" alt=""></div>
+						</div>
+					</div>
+				</div>
+				<div class="pagination-container">
+					<div class="swiper-pagination"></div>
+					<div class="pag-arrow left-arrow"></div>
+					<div class="pag-arrow right-arrow"></div>
+				</div>
+				<h2 class="section-title welcome-title">Welcome<br>to the Louvre</h2>
+				<p class="descr welcome-descr">From the castle to the museum</p>
+				<a href="" class="welcome-button descr" style="font-size: 22px">Discover the Louvre</a>
+			</div>
+		</section>
+		<section class="section"></section>
+		<section class="section"></section>
+		<section class="section"></section>
+		<section class="section"></section>
+		<section class="section"></section>
+	</main>
+	<footer class="footer">
+		<div class="container footer-container">
+			<div class="logo footer-logo">
+				<div class="logo-img"></div>
+				<span class="logo-heading">Louvre</span>
+			</div>
+			<nav class="nav-footer">
+				<ul class="nav-list-footer">
+					<li class="nav-item small-link-font"><a href="#visiting" class="nav-link">Visiting</a></li>
+					<li class="nav-item small-link-font"><a href="#explore" class="nav-link">Explore</a></li>
+					<li class="nav-item small-link-font"><a href="#video" class="nav-link">Video</a></li>
+				</ul>
+				<ul class="nav-list-footer">
+					<li class="nav-item small-link-font"><a href="#gallery" class="nav-link">Gallery</a></li>
+					<li class="nav-item small-link-font"><a href="#tickets" class="nav-link">Tickets</a></li>
+					<li class="nav-item small-link-font"><a href="#contacts" class="nav-link">Contacts</a></li>
+				</ul>
+			</nav>
+			<div class="social">
+				<ul class="social-list">
+					<li class="social-item"><a href="https://www.youtube.com/user/louvre" target="blank"
+							class="social-link youtube"></a></li>
+					<li class="social-item"><a href="https://www.instagram.com/museelouvre/" target="blank"
+							class="social-link insta"></a></li>
+					<li class="social-item"><a href="https://www.facebook.com/museedulouvre" target="blank"
+							class="social-link facebook"></a></li>
+					<li class="social-item"><a href="http://twitter.com/museelouvre" target="blank"
+							class="social-link twitter"></a>
+					</li>
+					<li class="social-item"><a href="https://www.pinterest.fr/museedulouvre/" target="blank"
+							class="social-link pinterest"></a></li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+	<div class="footer-rss">
+		<div class="container footer-rss-container">
+			<ul class="footer-rss-list">
+				<li class="footer-rss-item small-link-font" style="text-align: left;">&#169; 2021</li>
+				<li class="footer-rss-item small-link-font" style="text-align: center;">The Rolling Scopes School</li>
+				<li class="footer-rss-item small-link-font" style="text-align: right;">Ilya Dzyuin</li>
+			</ul>
+		</div>
+	</div>
+	<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+	<script src="/js/script.js"></script>
 </body>
+
 </html>
