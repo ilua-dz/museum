@@ -319,7 +319,35 @@
 								<p><span class="total-sum"></span> €</p>
 							</div>
 						</div>
-						<div class="pay-cards"></div>
+						<div class="pay-card">
+							<div class="card-top-side">
+								<p class="card-text-font">Card number</p>
+								<input type="text" maxlength="16" onkeyup="this.value = this.value.replace(/[^\d]/g,'')"
+									class="
+									card-input card-number-input card-text-font">
+								<p class="card-text-font">Expiration date</p>
+								<div class="card-date-input-block">
+									<input type="number" value="3" max="12" min="1"
+										class="card-input-month card-input card-text-font">
+									<input type="number" value="2024" min="2021" max="2026"
+										class="card-input-year card-input card-text-font">
+								</div>
+								<p class="card-text-font">Cardholder name</p>
+								<input type="text" class="card-input card-input-cardholdrer">
+								<div class="card-visa-label"></div>
+								<div class="card-mastercard-label"></div>
+							</div>
+							<div class="card-back-side">
+								<div class="black-stripe"></div>
+								<h5 class="card-cvv card-text-font">CVC/CVV</h5>
+								<input type="text" maxlength="3" onkeyup="this.value = this.value.replace(/[^\d]/g,'')"
+									class="card-input card-cvv-input card-text-font">
+								<p class="card-cvv-descr">The last <br>
+									3 or 4 digits <br>
+									on back <br>
+									of the card</p>
+							</div>
+						</div>
 						<button class="popup-buy-button">Book</button>
 					</div>
 				</div>
