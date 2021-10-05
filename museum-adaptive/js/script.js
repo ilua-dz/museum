@@ -60,7 +60,7 @@ const galleryImgContainer = document.querySelector('.gallery-img-container');
 
 let images = [];
 for (let i = 1; i < 16; i++) {
-	image = `<img src="assets/img/gallery/gallery${i}.jpg" alt="gallery${i}">`
+	image = `<img src="./assets/img/gallery/gallery${i}.avif" alt="gallery${i}">`
 	images.push(image)
 }
 
