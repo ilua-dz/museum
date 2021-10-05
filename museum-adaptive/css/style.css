@@ -13,6 +13,7 @@ html {
 
 body {
 	margin: 0;
+	min-width: 320px;
 }
 
 body * {
@@ -360,6 +361,7 @@ input[type="number"]::-webkit-outer-spin-button {
 		left: 55px;
 		top: 100%;
 		display: block;
+		width: 0;
 	}
 
 	.nav-list-header {
@@ -644,7 +646,7 @@ input[type="number"]::-webkit-outer-spin-button {
 	}
 
 	.slider-container {
-		width: 728px;
+		width: 100%;
 		height: 546px;
 		position: relative;
 		margin: 0 auto;
@@ -717,7 +719,7 @@ input[type="number"]::-webkit-outer-spin-button {
 	}
 
 	.slider-container {
-		width: 380px;
+		width: 100%;
 		height: 285px;
 	}
 
@@ -911,8 +913,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .explore-img {
+	object-fit: cover;
 	padding-top: 90px;
-	width: 720px;
+	width: 50%;
 	height: 700px;
 }
 
@@ -1438,6 +1441,12 @@ input[type="number"]::-webkit-outer-spin-button {
 	display: flex;
 }
 
+.tickets-img {
+	object-fit: cover;
+	width: 50%;
+	height: 440px;
+}
+
 .tickets-type-choise {
 	width: 270px;
 	padding-left: 60px;
@@ -1588,8 +1597,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 	.tickets-img {
 		object-fit: cover;
-		width: 700px;
-		height: 440px;
+		width: 71%;
+		/* height: 440px; */
 	}
 	.tickets-amount-choise {
 		width: 175px;
@@ -1642,7 +1651,7 @@ input[type="number"]::-webkit-outer-spin-button {
 		margin-bottom: 62px;
 	}
 	.tickets-img {
-		width: 444px;
+		width: 61%;
 		height: 340px;
 	}
 	.tickets-inner-flex {
@@ -1671,7 +1680,7 @@ input[type="number"]::-webkit-outer-spin-button {
 	}
 
 	.tickets-img {
-		width: 380px;
+		width: 100%;
 		height: 160px;
 	}
 	.tickets-inner-flex {
@@ -2540,6 +2549,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 @media (max-width: 768px) {
 	.footer {
+		overflow-x: hidden;
 		height: 308px;
 		border-width: 1px;
 	}
@@ -2625,13 +2635,16 @@ input[type="number"]::-webkit-outer-spin-button {
 	align-items: center;
 }
 
+.footer-rss-link {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+}
+
 .footer-rss-list {
 	width: 100%;
 	display: flex;
-}
-
-.footer-rss-item {
-	flex: 1;
+	justify-content: space-between;
 }
 
 @media (max-width: 768px) {
@@ -2645,15 +2658,16 @@ input[type="number"]::-webkit-outer-spin-button {
 		letter-spacing: 2px;
 	}
 }
+@media (max-width: 620px) {
+	.footer-rss-link {
+		display: none;
+	}
+}
 @media (max-width: 420px) {
 	.footer-rss-font {
 		font-weight: 200;
 		font-size: 16px;
 		line-height: 19px;
 		letter-spacing: 2px;
-	}
-
-	.footer-rss-item:nth-child(2) {
-		display: none;
 	}
 }
