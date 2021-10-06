@@ -83,8 +83,6 @@ for (let i = 1; i < 16; i++) {
 	if (i === 5 || i === 11) randomImages.splice(i, 0, `<div class="spacer"></div>`)
 }
 
-console.log(randomImages);
-
 galleryImgContainer.innerHTML = randomImages.join('');
 
 //*! Tickets
