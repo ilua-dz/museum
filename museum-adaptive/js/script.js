@@ -1,20 +1,24 @@
 //*! burger menu
 const menuButton = document.querySelector('.menu-icon');
+const menuButtonOffset = document.querySelector('.menu-icon-container')
 const welcomeTitle = document.querySelector('.welcome-title');
 const welcomeDescr = document.querySelector('.welcome-descr');
 const welcomeButton = document.querySelector('.welcome-button');
 const headerNavList = document.querySelector('.nav-list-header');
 const welcomeSection = document.querySelector('.welcome-container')
+const navItemsHeader = document.querySelectorAll('.nav-item-header')
 
-menuButton.addEventListener('click', () => {
+const burgerMenuToggle = () => {
 	menuButton.classList.toggle('menu-icon-active');
 	welcomeTitle.classList.toggle('menu-active');
 	welcomeDescr.classList.toggle('menu-active');
 	welcomeButton.classList.toggle('menu-active');
 	welcomeSection.classList.toggle('welcome-menu-active');
 	headerNavList.classList.toggle('side-menu-active');
+}
 
-});
+menuButtonOffset.addEventListener('click', () => burgerMenuToggle());
+navItemsHeader.forEach(i => i.addEventListener('click', () => burgerMenuToggle()));
 
 
 

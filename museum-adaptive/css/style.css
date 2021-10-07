@@ -388,7 +388,7 @@ input[type="number"]::-webkit-outer-spin-button {
 		letter-spacing: 2px;
 	}
 
-	.nav-item-footer::after {
+	.header-nav-link::after {
 		position: absolute;
 		content: "";
 		width: 7px;
@@ -399,7 +399,7 @@ input[type="number"]::-webkit-outer-spin-button {
 		transition: all 0.5s;
 	}
 
-	.nav-item-footer:hover::after {
+	.nav-item-header:hover::after {
 		filter: invert(60%) sepia(13%) saturate(918%) hue-rotate(356deg) brightness(88%) contrast(82%);
 	}
 
