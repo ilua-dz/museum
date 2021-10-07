@@ -1955,7 +1955,7 @@ input[type="number"]::-webkit-outer-spin-button {
 	opacity: 0;
 	visibility: hidden;
 	transition: all 0.7s;
-	overflow-x: auto;
+	overflow-x: hidden;
 }
 
 .popup-overlay {
