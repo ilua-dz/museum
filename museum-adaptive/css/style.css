@@ -908,15 +908,59 @@ input[type="number"]::-webkit-outer-spin-button {
 .explore-container {
 	height: 865px;
 	display: flex;
-	column-gap: 60px;
 	justify-content: space-between;
 }
 
-.explore-img {
-	object-fit: cover;
-	padding-top: 90px;
+.img-compare-container {
+	margin-top: 90px;
+	margin-bottom: 75px;
 	width: 50%;
-	height: 700px;
+	overflow: hidden;
+}
+
+.img-compare {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.img-compare img {
+	height: 100%;
+	vertical-align: middle;
+}
+
+.img-compare-slider {
+	position: absolute;
+	z-index: 7;
+	cursor: ew-resize;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	border: 6px solid white;
+	background-color: transparent;
+}
+
+.img-compare-slider::before,
+.img-compare-slider::after {
+	content: "";
+	position: absolute;
+	background-color: white;
+	height: 350px;
+	width: 5px;
+	left: calc(50% - 2.5px);
+}
+
+.img-compare-slider::before {
+	top: -350px;
+}
+
+.img-compare-slider::after {
+	top: 100%;
+}
+
+.explore-text {
+	width: 46.3%;
 }
 
 .explore-descr {
@@ -937,6 +981,7 @@ input[type="number"]::-webkit-outer-spin-button {
 		height: 1149px;
 		flex-direction: column;
 		justify-content: flex-start;
+		align-content: center;
 	}
 
 	.explore-descr {
@@ -949,11 +994,13 @@ input[type="number"]::-webkit-outer-spin-button {
 		display: none;
 	}
 
-	.explore-img {
-		width: 73%;
-		height: auto;
-		margin: 0 auto;
-		padding-top: 62px;
+	.explore-text {
+		width: 100%;
+	}
+
+	.img-compare-container {
+		width: calc(100% - 264px);
+		margin: 62px auto;
 	}
 }
 
@@ -964,20 +1011,32 @@ input[type="number"]::-webkit-outer-spin-button {
 	.explore-descr {
 		display: none;
 	}
-	.explore-img {
-		width: 100%;
-		padding-top: 0px;
-		padding-bottom: 0px;
-	}
 
 	.explore-title {
 		margin-bottom: 60px;
+	}
+
+	.img-compare-container {
+		margin: 0 auto;
+		width: 100%;
 	}
 }
 
 @media (max-width: 420px) {
 	.explore-container {
 		height: 551px;
+	}
+
+	.img-compare-slider {
+		width: 14px;
+		height: 14px;
+		border: 3px solid white;
+	}
+
+	.img-compare-slider::before,
+	.img-compare-slider::after {
+		width: 1px;
+		left: calc(50% - 1px);
 	}
 }
 

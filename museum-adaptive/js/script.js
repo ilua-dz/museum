@@ -43,6 +43,74 @@ swiper.on('slideChange', function () {
 	document.getElementById("slide-number").textContent = `0${swiper.realIndex + 1}`;
 })
 
+
+
+//*! explore slider
+
+const compContainer = document.querySelector('.img-compare-container');
+
+window.addEventListener('resize', () => {
+	let compContainerWidth = compContainer.offsetWidth;
+	compContainer.style.height = (compContainerWidth * 0.97) + "px";
+});
+
+const compareImage = document.querySelector('.img-compare-overlay');
+compareImages(compareImage);
+function compareImages(overlay) {
+
+	function compareInit() {
+		let compContainerWidth = compContainer.offsetWidth;
+		let h = overlay.offsetHeight;
+		overlay.style.width = (compContainerWidth * 0.61) + "px";
+		slider.style.top = (h * 0.5) - (slider.offsetHeight / 2) + "px";
+		slider.style.left = (compContainerWidth * 0.61) - (slider.offsetWidth / 2) + "px";
+		if (window.innerWidth < 769) slider.style.top = (h * 0.52) - (slider.offsetHeight / 2) + "px";
+	}
+	let pressed = 0;
+	let w = overlay.offsetWidth;
+	const slider = document.createElement("div");
+	slider.setAttribute("class", "img-compare-slider");
+	overlay.parentElement.insertBefore(slider, overlay);
+
+	document.addEventListener('DOMContentLoaded', () => compareInit());
+	window.addEventListener('resize', () => compareInit());
+
+	slider.addEventListener("mousedown", slideReady);
+	window.addEventListener("mouseup", () => pressed = 0);
+
+	slider.addEventListener("touchstart", slideReady);
+	window.addEventListener("touchstop", () => pressed = 0);
+
+	function slideReady(event) {
+		event.preventDefault();
+		pressed = 1;
+		window.addEventListener("mousemove", slideMove);
+		window.addEventListener("touchmove", slideMove);
+	}
+
+	function slideMove(event) {
+		if (pressed == 0) return false;
+		let position = getCursorPosition(event)
+		if (position < 0) position = 0;
+		if (position > w) position = w;
+		slide(position);
+	}
+
+	function getCursorPosition(event) {
+		let a = overlay.getBoundingClientRect();
+		let pos = event.pageX - a.left;
+		event = event || window.event;
+		pos = pos - window.pageXOffset;
+		return pos;
+	}
+
+	function slide(pos) {
+		overlay.style.width = pos + "px";
+		slider.style.left = overlay.offsetWidth - (slider.offsetWidth / 2) + "px";
+	}
+}
+
+
 //*! video-controls
 
 const videoProgress = document.querySelectorAll('.video-progress');
