@@ -16,6 +16,27 @@ body {
 	min-width: 320px;
 }
 
+.overlay {
+	position: absolute;
+	opacity: 0;
+	visibility: hidden;
+	z-index: 50;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.1);
+	transition: all 0.4s;
+}
+
+.overlay-active {
+	opacity: 1;
+	visibility: visible;
+}
+
+.header,
+.menu-icon-container {
+	z-index: 51;
+}
+
 body * {
 	padding: 0;
 	margin: 0;

@@ -7,19 +7,34 @@ const welcomeButton = document.querySelector('.welcome-button');
 const headerNavList = document.querySelector('.nav-list-header');
 const welcomeSection = document.querySelector('.welcome-container')
 const navItemsHeader = document.querySelectorAll('.nav-item-header')
+const overlay = document.querySelector('.overlay');
 
-const burgerMenuToggle = () => {
+let menuIsClosed = true;
+
+const menuToggle = () => {
 	menuButton.classList.toggle('menu-icon-active');
 	welcomeTitle.classList.toggle('menu-active');
 	welcomeDescr.classList.toggle('menu-active');
 	welcomeButton.classList.toggle('menu-active');
 	welcomeSection.classList.toggle('welcome-menu-active');
 	headerNavList.classList.toggle('side-menu-active');
+	overlay.classList.toggle('overlay-active');
+	menuIsClosed = !menuIsClosed;
+};
+
+overlay.addEventListener('click', () => menuToggle());
+menuButtonOffset.addEventListener('click', () => menuToggle());
+navItemsHeader.forEach(i => i.addEventListener('click', () => menuToggle()));
+
+const setOverlayBodySize = () => {
+	let bodyHeight = document.querySelector('body').offsetHeight;
+	let bodyWidth = document.querySelector('body').offsetWidth;
+	overlay.style.height = bodyHeight + 'px';
+	overlay.style.width = bodyWidth + 'px';
 }
 
-menuButtonOffset.addEventListener('click', () => burgerMenuToggle());
-navItemsHeader.forEach(i => i.addEventListener('click', () => burgerMenuToggle()));
-
+window.addEventListener('resize', () => setOverlayBodySize());
+document.addEventListener('DOMContentLoaded', () => setOverlayBodySize());
 
 
 //*! welcome-slider
@@ -58,60 +73,57 @@ window.addEventListener('resize', () => {
 	compContainer.style.height = (compContainerWidth * 0.97) + "px";
 });
 
-const compareImage = document.querySelector('.img-compare-overlay');
-compareImages(compareImage);
-function compareImages(overlay) {
+const compareOverlay = document.querySelector('.img-compare-overlay');
 
-	function compareInit() {
-		let compContainerWidth = compContainer.offsetWidth;
-		let h = overlay.offsetHeight;
-		overlay.style.width = (compContainerWidth * 0.61) + "px";
-		slider.style.top = (h * 0.5) - (slider.offsetHeight / 2) + "px";
-		slider.style.left = (compContainerWidth * 0.61) - (slider.offsetWidth / 2) + "px";
-		if (window.innerWidth < 769) slider.style.top = (h * 0.52) - (slider.offsetHeight / 2) + "px";
-	}
-	let pressed = 0;
-	let w = overlay.offsetWidth;
-	const slider = document.createElement("div");
-	slider.setAttribute("class", "img-compare-slider");
-	overlay.parentElement.insertBefore(slider, overlay);
+function compareInit() {
+	let compContainerWidth = compContainer.offsetWidth;
+	let h = compareOverlay.offsetHeight;
+	compareOverlay.style.width = (compContainerWidth * 0.61) + "px";
+	slider.style.top = (h * 0.5) - (slider.offsetHeight / 2) + "px";
+	slider.style.left = (compContainerWidth * 0.61) - (slider.offsetWidth / 2) + "px";
+	if (window.innerWidth < 769) slider.style.top = (h * 0.52) - (slider.offsetHeight / 2) + "px";
+}
+let pressed = 0;
+let w = compareOverlay.offsetWidth;
+const slider = document.createElement("div");
+slider.setAttribute("class", "img-compare-slider");
+compareOverlay.parentElement.insertBefore(slider, compareOverlay);
 
-	document.addEventListener('DOMContentLoaded', () => compareInit());
-	window.addEventListener('resize', () => compareInit());
+document.addEventListener('DOMContentLoaded', () => compareInit());
+window.addEventListener('resize', () => compareInit());
 
-	slider.addEventListener("mousedown", slideReady);
-	window.addEventListener("mouseup", () => pressed = 0);
+slider.addEventListener("mousedown", slideReady);
+window.addEventListener("mouseup", () => pressed = 0);
 
-	slider.addEventListener("touchstart", slideReady);
-	window.addEventListener("touchstop", () => pressed = 0);
+slider.addEventListener("touchstart", slideReady);
+window.addEventListener("touchstop", () => pressed = 0);
 
-	function slideReady(event) {
-		event.preventDefault();
-		pressed = 1;
-		window.addEventListener("mousemove", slideMove);
-		window.addEventListener("touchmove", slideMove);
-	}
+function slideReady(event) {
+	event.preventDefault();
+	pressed = 1;
+	window.addEventListener("mousemove", slideMove);
+	window.addEventListener("touchmove", slideMove);
+}
 
-	function slideMove(event) {
-		if (pressed == 0) return false;
-		let position = getCursorPosition(event)
-		if (position < 0) position = 0;
-		if (position > w) position = w;
-		slide(position);
-	}
+function slideMove(event) {
+	if (pressed == 0) return false;
+	let position = getCursorPosition(event)
+	if (position < 0) position = 0;
+	if (position > w) position = w;
+	slide(position);
+}
 
-	function getCursorPosition(event) {
-		let a = overlay.getBoundingClientRect();
-		let pos = event.pageX - a.left;
-		event = event || window.event;
-		pos = pos - window.pageXOffset;
-		return pos;
-	}
+function getCursorPosition(event) {
+	let a = compareOverlay.getBoundingClientRect();
+	let pos = event.pageX - a.left;
+	event = event || window.event;
+	pos = pos - window.pageXOffset;
+	return pos;
+}
 
-	function slide(pos) {
-		overlay.style.width = pos + "px";
-		slider.style.left = overlay.offsetWidth - (slider.offsetWidth / 2) + "px";
-	}
+function slide(pos) {
+	compareOverlay.style.width = pos + "px";
+	slider.style.left = compareOverlay.offsetWidth - (slider.offsetWidth / 2) + "px";
 }
 
 
@@ -217,8 +229,7 @@ for (let i = 0; i < ticketBasicMinus.length; i++) {
 	});
 }
 
-console.log('Предварительная оценка - 151 балл')
+console.log('Предварительная оценка - 153 балла')
 console.log('Не выполненные/частично выполненные пункты:')
-console.log('-2 Адаптивное меню не закрывается при клике по его пункту/при клике по overlay')
 console.log('-3 Для 420px и 768px не полностью сверстано меню;')
 console.log('-4 Результат проверки скорости сайта - средний')
