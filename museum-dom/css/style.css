@@ -1120,8 +1120,10 @@ input[type="number"]::-webkit-outer-spin-button {
 	margin-top: 75px;
 }
 
-.video-player-img {
+.video-view {
 	width: 100%;
+	height: 650px;
+	object-fit: cover;
 }
 
 .play-big-button {
@@ -1140,17 +1142,58 @@ input[type="number"]::-webkit-outer-spin-button {
 	filter: invert(30%) sepia(99%) saturate(7306%) hue-rotate(349deg) brightness(85%) contrast(118%);
 }
 
+.video-speed {
+	opacity: 0;
+	position: absolute;
+	top: calc(20% - 25px);
+	left: calc(50% - 150px);
+	width: 300px;
+	height: 50px;
+	border-radius: 10px;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	transition: all 0.5s;
+}
+
+.video-speed p {
+	display: block;
+	color: seashell;
+}
+
+.video-speed-string {
+	color: seashell;
+}
+
 .video-controls {
+	opacity: 0;
 	height: 85px;
 	background-color: black;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 30px;
+	transition: all 0.5s;
+}
+
+.video-controls:hover {
+	opacity: 1;
+}
+
+.video-player:hover + .video-controls {
+	opacity: 1;
 }
 
 .video-button:hover {
 	filter: brightness(100);
+}
+
+.pause-button {
+	display: none;
+	width: 23px;
+	background: url("../assets/svg/video-controls/controls/pause.svg") no-repeat center;
 }
 
 .play-button {
@@ -1161,6 +1204,12 @@ input[type="number"]::-webkit-outer-spin-button {
 .volume-toggle {
 	width: 38px;
 	background: url("../assets/svg/video-controls/controls/volume.svg") no-repeat center;
+}
+
+.mute {
+	display: none;
+	width: 38px;
+	background: url("../assets/svg/video-controls/controls/mute.svg") no-repeat center;
 }
 
 .fs-button {
@@ -1205,9 +1254,6 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .video-slider * {
 	box-sizing: inherit;
-}
-
-.video-slider-slide {
 }
 
 .video-slider-slide iframe {
@@ -2962,4 +3008,25 @@ input[type="number"]::-webkit-outer-spin-button {
 		line-height: 19px;
 		letter-spacing: 2px;
 	}
+}
+
+.up-button {
+	z-index: 100;
+	position: fixed;
+	width: 100px;
+	height: 100px;
+	right: 100px;
+	bottom: 100px;
+	border-radius: 50%;
+	background: url("../assets/svg/up.svg") no-repeat center;
+	filter: invert(59%) sepia(4%) saturate(2906%) hue-rotate(356deg) brightness(92%) contrast(75%);
+	transition: all 0.1s;
+}
+
+.up-button:hover {
+	width: 120px;
+	height: 120px;
+	right: 90px;
+	bottom: 90px;
+	filter: invert(10%) sepia(32%) saturate(6043%) hue-rotate(345deg) brightness(113%) contrast(111%);
 }

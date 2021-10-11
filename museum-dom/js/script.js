@@ -96,9 +96,6 @@ window.addEventListener('resize', () => compareInit());
 slider.addEventListener("mousedown", slideReady);
 window.addEventListener("mouseup", () => pressed = 0);
 
-slider.addEventListener("touchstart", slideReady);
-window.addEventListener("touchstop", () => pressed = 0);
-
 function slideReady(event) {
 	event.preventDefault();
 	pressed = 1;
@@ -128,16 +125,132 @@ function slide(pos) {
 }
 
 
-//*! video-controls
+//*! video player
 
-const videoProgress = document.querySelectorAll('.video-progress');
 
-for (let i = 0; i < videoProgress.length; i++) {
-	videoProgress[i].addEventListener('input', function () {
-		const value = this.value;
-		this.style.background = `linear-gradient(to right, #710707 0%, #710707 ${value}%, #c4c4c4 ${value}%, #c4c4c4 100%)`
-	})
+const videoPlayer = document.querySelector('.video-view');
+const videoPlayButton = document.querySelector('.play-button')
+const videoPlayBigButton = document.querySelector('.play-big-button')
+const videoPauseButton = document.querySelector('.pause-button')
+const videoVolumeOffButton = document.querySelector('.volume-toggle')
+const videoVolumeOnButton = document.querySelector('.mute')
+const videoFSButton = document.querySelector('.fs-button')
+const videoVolumeProgress = document.querySelector('.video-volume-progress')
+const videoTimeProgress = document.querySelector('.video-time-progress')
+const videoSpeedString = document.querySelector('.video-speed-string')
+const videoSpeedContainer = document.querySelector('.video-speed')
+let videoVolume = videoVolumeProgress.value / 100;
+let videoSpeed = 1;
+
+const changeProgress = (progress) => {
+	let value = progress.value;
+	progress.style.background = `linear-gradient(to right, #710707 0%, #710707 ${value}%, #c4c4c4 ${value}%, #c4c4c4 100%)`
 }
+
+videoTimeProgress.addEventListener('change', () => changeProgress(videoTimeProgress))
+
+const videoPlayingMode = () => {
+	videoPlayer.play();
+	videoPlayButton.style.display = 'none';
+	videoPlayBigButton.style.display = 'none';
+	videoPauseButton.style.display = 'block';
+	console.log(videoPlayer.currentTime)
+}
+
+const videoPauseMode = () => {
+	videoPlayer.pause();
+	videoPauseButton.style.display = 'none';
+	videoPlayButton.style.display = 'block';
+	videoPlayBigButton.style.display = 'block';
+}
+
+const videoPlayingToggle = () => {
+	switch (videoPlayer.paused) {
+		case (false):
+			videoPauseMode();
+			break;
+		case (true):
+			videoPlayingMode();
+			break;
+	}
+}
+
+videoPlayer.addEventListener('click', () => videoPlayingToggle())
+
+videoPlayer.addEventListener('ended', () => {
+	videoPauseMode();
+})
+
+videoPlayer.addEventListener('timeupdate', () => {
+	videoTimeProgress.value = Math.floor((100 / videoPlayer.duration) * videoPlayer.currentTime);
+	changeProgress(videoTimeProgress);
+});
+
+videoTimeProgress.addEventListener('change', () => {
+	videoPlayer.currentTime = Math.floor((videoTimeProgress.value * videoPlayer.duration) / 100);
+	changeProgress(videoTimeProgress);
+})
+
+const videoVolumeOn = () => {
+	videoVolumeOffButton.style.display = 'block';
+	videoVolumeOnButton.style.display = 'none';
+	videoPlayer.volume = videoVolume;
+	videoVolumeProgress.value = videoVolume * 100;
+	changeProgress(videoVolumeProgress);
+}
+
+const videoVolumeOff = () => {
+	videoVolumeOnButton.style.display = 'block';
+	videoVolumeOffButton.style.display = 'none';
+	videoPlayer.volume = 0;
+	videoVolumeProgress.value = 0;
+	changeProgress(videoVolumeProgress);
+}
+
+videoVolumeProgress.addEventListener('change', () => {
+	videoVolume = videoVolumeProgress.value / 100;
+	videoPlayer.volume = videoVolume;
+	changeProgress(videoVolumeProgress);
+	if (!videoVolume) {
+		videoVolumeOnButton.style.display = 'block';
+		videoVolumeOffButton.style.display = 'none';
+	} else {
+		videoVolumeOffButton.style.display = 'block';
+		videoVolumeOnButton.style.display = 'none';
+	}
+})
+
+const videoSpeedChange = () => {
+	videoPlayer.playbackRate = videoSpeed;
+	videoSpeedString.textContent = videoSpeed;
+	videoSpeedContainer.style.opacity = '1';
+	setTimeout(() => videoSpeedContainer.style.opacity = '0', 1500)
+}
+
+videoVolumeOffButton.addEventListener('click', () => videoVolumeOff())
+videoVolumeOnButton.addEventListener('click', () => videoVolumeOn())
+videoPlayBigButton.addEventListener('click', () => videoPlayingMode())
+videoPlayButton.addEventListener('click', () => videoPlayingMode())
+videoPauseButton.addEventListener('click', () => videoPauseMode())
+
+
+
+document.addEventListener('keydown', function (e) {
+	if (e.code == 'Space' || e.code == 'KeyM' || e.code == 'Comma' || e.code == 'Period') e.preventDefault();
+})
+
+document.addEventListener('keyup', function (e) {
+	// alert(e.code);
+	switch (e.code) {
+		case 'Space': videoPlayingToggle(); break;
+		case 'KeyM':
+			if (videoVolumeProgress.value == 0) videoVolumeOn()
+			else videoVolumeOff();
+			break;
+		case 'Period': if (videoSpeed < 3) videoSpeed += 0.25; videoSpeedChange(); break;
+		case 'Comma': if (videoSpeed > 0.25) videoSpeed -= 0.25; videoSpeedChange(); break;
+	}
+});
 
 
 //*! video-slider
@@ -170,12 +283,6 @@ const videoSliderSizing = () => {
 
 window.addEventListener('resize', () => videoSliderSizing());
 document.addEventListener('DOMContentLoaded', () => videoSliderSizing());
-
-// videoSliderSlide.forEach(i => {
-// 	i.onplay = (e) => { console.log(e) }
-// 	i.onpause = (e) => { console.log(e) }
-// });
-
 
 
 //*! gallery-randomize
@@ -305,7 +412,6 @@ const setAmountAndPrice = () => {
 }
 
 
-
 document.body.addEventListener('change', function (e) {
 	switch (e.target.name) {
 		case 'tickets-type-choise-input':
@@ -389,3 +495,23 @@ const marker2 = new mapboxgl.Marker({ color: 'grey' }).setLngLat([2.3333, 48.860
 const marker3 = new mapboxgl.Marker({ color: 'grey' }).setLngLat([2.3397, 48.8607]).addTo(map);
 const marker4 = new mapboxgl.Marker({ color: 'grey' }).setLngLat([2.3330, 48.8619]).addTo(map);
 const marker5 = new mapboxgl.Marker({ color: 'grey' }).setLngLat([2.3365, 48.8625]).addTo(map);
+
+// *! Self-rating
+
+console.log('Предварительная оценка: 139 баллов')
+console.log('Не выполненные/частично выполненные пункты:')
+console.log('Слайдер в секции Video:')
+console.log('-1 Возможно воспроизведение нескольких видео одновременно')
+console.log('-2 Проигрывание видео не останавливается при переключении слайдов')
+console.log('-1 Слайдер переключается кликами по стрелкам, но при этом не переключается основное видео')
+console.log('-1 Слайдер переключается кликами буллитам, но при этом не переключается основное видео')
+console.log('-2 Слайдер не влияет на воспроизведение основного видео')
+console.log('Кастомный видеоплеер:')
+console.log('-6 Не реализован режим FullScreen')
+console.log('Анимация в секции Gallery:')
+console.log('-8 Не реализована')
+console.log('Дополнительный функционал:')
+console.log('Клавиша подъема на верх страницы, которая всегда сопровождает Вас при навигации по странице')
+console.log('Элементы управления видеоплеером по умолчанию скрыты, но при наведении курсора на плеер они становятся видимыми')
+
+

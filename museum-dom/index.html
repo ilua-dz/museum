@@ -20,7 +20,7 @@
 
 <body>
 	<div class="overlay"></div>
-	<header class="header">
+	<header class="header" id="up">
 		<div class="container header-container">
 			<div class="logo">
 				<div class="logo-img"></div>
@@ -161,13 +161,19 @@
 						masterpieces such as Mona Lisa or Hammurabi's Code</p>
 				</div>
 				<div class="video-player">
-					<img src="./assets/video/poster0.avif" alt="video" class="video-player-img">
+					<video src="/assets/video/video0.mp4" class="video-view"
+						poster="./assets/video/poster4.avif"></video>
 					<button class="play-big-button"></button>
+					<div class="video-speed">
+						<p class="font-medium">Playback speed: <span class="video-speed-string font-medium">1</span></p>
+					</div>
 				</div>
 				<div class="video-controls">
 					<button class="video-button play-button"></button>
+					<button class="video-button pause-button"></button>
 					<input class="video-progress video-time-progress" type="range" value="54">
 					<button class="video-button volume-toggle"></button>
+					<button class="video-button mute"></button>
 					<input type="range" class="video-progress video-volume-progress" value="44">
 					<button class="video-button fs-button"></button>
 				</div>
@@ -462,6 +468,7 @@
 			</div>
 		</div>
 	</div>
+	<a href="#up" class="up-button"></a>
 	<script src="./js/swiper-bundle.min.js"></script>
 	<script src="./js/script.min.js"></script>
 </body>
