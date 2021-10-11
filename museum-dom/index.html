@@ -13,6 +13,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Forum&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Forum&family=Roboto:wght@100;300;400;500;700&display=swap"
 		rel="stylesheet">
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
 	<title>museum</title>
 </head>
 
@@ -57,7 +59,7 @@
 				<a href="./discover-links/frame1.html" target="blank" class="descr welcome-button">Discover the
 					Louvre</a>
 				<div class="slider-container">
-					<div class="swiper">
+					<div class="swiper welcome-slider">
 						<div class="swiper-wrapper">
 							<div class="swiper-slide"><img src="./assets/img/welcome-slider/1.avif" alt="1"
 									class="welcome-slider-img"></div>
@@ -82,7 +84,6 @@
 					<button class="pag-arrow pag-left-arrow"></button>
 					<button class="pag-arrow pag-right-arrow"></button>
 				</div>
-
 			</div>
 		</section>
 		<section class="section-light visiting" id="visiting">
@@ -170,20 +171,46 @@
 					<input type="range" class="video-progress video-volume-progress" value="44">
 					<button class="video-button fs-button"></button>
 				</div>
-				<div class="video-slider-previews">
-					<img src="./assets/video/video-slider-item1.avif" alt="preview1" class="video-slider-preview">
-					<img src="./assets/video/video-slider-item2.avif" alt="preview2" class="video-slider-preview">
-					<img src="./assets/video/video-slider-item3.avif" alt="preview3" class="video-slider-preview">
+				<div class="swiper video-slider">
+					<div class="swiper-wrapper video-slider-wrapper">
+						<div class="swiper-slide video-slider-slide">
+							<iframe src="https://www.youtube.com/embed/zp1BXPX8jcU?hl=en" title="YouTube video player"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen loading="lazy">
+							</iframe>
+						</div>
+						<div class="swiper-slide video-slider-slide">
+							<iframe src="https://www.youtube.com/embed/Vi5D6FKhRmo?hl=en" title="YouTube video player"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen loading="lazy">
+							</iframe>
+						</div>
+						<div class="swiper-slide video-slider-slide">
+							<iframe src="https://www.youtube.com/embed/NOhDysLnTvY?hl=en" title="YouTube video player"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen loading="lazy">
+							</iframe>
+						</div>
+						<div class="swiper-slide video-slider-slide">
+							<iframe src="https://www.youtube.com/embed/aWmJ5DgyWPI?hl=en" title="YouTube video player"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen loading="lazy">
+							</iframe>
+						</div>
+						<div class="swiper-slide video-slider-slide">
+							<iframe src="https://www.youtube.com/embed/2OR0OCr6uRE?hl=en" title="YouTube video player"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowfullscreen loading="lazy">
+							</iframe>
+						</div>
+					</div>
 				</div>
-				<div class="video-slider-pagination">
-					<button class="video-slider-button video-slider-button-prev"></button>
-					<div class="video-slider-bullet first-bullet"></div>
-					<div class="video-slider-bullet"></div>
-					<div class="video-slider-bullet"></div>
-					<div class="video-slider-bullet"></div>
-					<div class="video-slider-bullet"></div>
-					<button class="video-slider-button video-slider-button-next"></button>
-				</div>
+			</div>
+			<div class="video-slider-pagination-container">
+				<button class="video-slider-button video-slider-button-prev"></button>
+				<div class="swiper pagination video-slider-pagination"></div>
+				<button class="video-slider-button video-slider-button-next"></button>
+			</div>
 			</div>
 		</section>
 		<section class="section gallery" id="gallery">
@@ -201,19 +228,19 @@
 						<h3 class="tickets-bold-font">Ticket Type</h3>
 						<div class="radio-button">
 							<input type="radio" id="tickets-type-choise-input-1" name="tickets-type-choise-input"
-								class="radio-input" checked>
+								class="radio-input tickets-type-choise-input" value="1" checked>
 							<label for="tickets-type-choise-input-1" class="radio-label tickets-font">Permanent
 								exhibition</label>
 						</div>
 						<div class="radio-button">
 							<input type="radio" id="tickets-type-choise-input-2" name="tickets-type-choise-input"
-								class="radio-input">
+								class="radio-input tickets-type-choise-input" value="1.25">
 							<label for="tickets-type-choise-input-2" class="radio-label tickets-font">Temporary
 								exhibition</label>
 						</div>
 						<div class="radio-button">
 							<input type="radio" id="tickets-type-choise-input-3" name="tickets-type-choise-input"
-								class="radio-input">
+								class="radio-input tickets-type-choise-input" value="2">
 							<label for="tickets-type-choise-input-3" class="radio-label tickets-font">Combined
 								Admission</label>
 						</div>
@@ -264,7 +291,7 @@
 							</li>
 						</ul>
 					</div>
-					<div class="contacts-map-container"></div>
+					<div id="map" class="contacts-map-container"></div>
 				</div>
 			</div>
 		</section>
@@ -326,22 +353,30 @@
 						<h4>Tour to Louvre</h4>
 						<form action="#" class="popup-inputs">
 							<div class="date-time">
-								<input type="date" class="tickets-date">
-								<input type="time" class="tickets-time">
+								<input type="date" name="date" class="tickets-date">
+								<select name="time" class="tickets-time"></select>
 							</div>
-							<input type="text" class="tickets-input tickets-name">
-							<input type="email" class="tickets-input tickets-email">
-							<input type="tel" class="tickets-input tickets-phone">
-							<select class="tickets-input tickets-select">
-								<option selected style="display:none;">Ticket Type</option>
-								<option value="Permanent exhibition">Permanent exhibition</option>
-								<option value="Temporary exhibition">Temporary exhibition</option>
-								<option value="Combined Admission">Combined Admission</option>
+							<input type="text" name="tickets-name" required placeholder="Your name"
+								class="tickets-input tickets-name" pattern="^[A-Za-zА-Яа-я\s]{3,15}$">
+							<span class="input-invalid invalid-name">
+								Your Name must contain from 3 to 15 letters</span>
+							<input type="email" name="tickets-email" required placeholder="Email"
+								class="tickets-input tickets-email" pattern="^[\w-]{3,15}@[a-z]{4,}.[a-z]{2,}$">
+							<span class="input-invalid invalid-email">
+								Email example: username@email.com</span>
+							<input type="tel" name="tickets-phone" required placeholder="Telephone"
+								class="tickets-input tickets-phone" pattern="^(\d{2,3}[- ]?){1,5}">
+							<span class="input-invalid invalid-phone">
+								Phone example: 8123 444-55-66</span>
+							<select name="tickets-type-choise-input" class="tickets-input tickets-select">
+								<option value="1">Permanent exhibition</option>
+								<option value="1.25">Temporary exhibition</option>
+								<option value="2">Combined Admission</option>
 							</select>
 							<div class="entry-tickets">
 								<h4>Entry Ticket</h4>
 								<div class="entry-counter basic-counter">
-									<p>Basic 18+ (20 €)</p>
+									<p>Basic 18+ (<span class="basic-ticket-price">20</span> €)</p>
 									<div class="basic-ticket-amount-popup">
 										<input type="number" class="amount input-number">
 										<button type="button"
@@ -352,7 +387,7 @@
 									</div>
 								</div>
 								<div class="entry-counter senior-counter">
-									<p>Senior 65+ (10 €)</p>
+									<p>Senior 65+ (<span class="senior-ticket-price">10</span> €)</p>
 									<div class="senior-ticket-amount-popup">
 										<input type="number" class="amount input-number">
 										<button type="button"
@@ -370,9 +405,9 @@
 							<div class="payment-heading-text">
 								<h4>Overview</h4>
 								<h5>Tour to Louvre</h5>
-								<p class="day">Friday, August 19</p>
-								<p class="time">16 : 30</p>
-								<p class="temp">Temporary exhibition</p>
+								<p class="day"> -- -- --</p>
+								<p class="time">-- -- --</p>
+								<p class="exhibition-string">Temporary exhibition</p>
 							</div>
 							<img src="./assets/img/payment-img.avif" alt="Louvre" class="payment-img">
 						</div>
