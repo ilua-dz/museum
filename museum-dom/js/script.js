@@ -397,8 +397,8 @@ const phoneInput = document.querySelector('.input-phone')
 const namePrompt = document.querySelector('.invalid-name')
 const emailPrompt = document.querySelector('.invalid-email')
 const phonePrompt = document.querySelector('.invalid-phone')
-const basicPriceString = document.querySelector('.basic-ticket-price');
-const seniorPriceString = document.querySelector('.senior-ticket-price');
+const basicPriceString = document.querySelectorAll('.basic-ticket-price');
+const seniorPriceString = document.querySelectorAll('.senior-ticket-price');
 
 
 
@@ -449,8 +449,8 @@ const setAmountAndPrice = () => {
 
 	ticketBasicSum.textContent = basicPriceSum;
 	ticketSeniorSum.textContent = seniorPriceSum;
-	basicPriceString.textContent = basicPrice;
-	seniorPriceString.textContent = seniorPrice;
+	basicPriceString.forEach(i => i.textContent = basicPrice);
+	seniorPriceString.forEach(i => i.textContent = seniorPrice);
 
 	switch (exhibitionType) {
 		case '1': exhibitionString.textContent = exhibTypes[0]; break;
