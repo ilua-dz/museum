@@ -1118,11 +1118,12 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .video-player {
 	margin-top: 75px;
+	height: 735px;
 }
 
 .video-view {
 	width: 100%;
-	height: 650px;
+	height: 100%;
 	object-fit: cover;
 }
 
@@ -1169,7 +1170,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .video-controls {
 	opacity: 0;
+	position: absolute;
+	width: calc(100% - 60px);
 	height: 85px;
+	bottom: 0;
 	background-color: black;
 	display: flex;
 	justify-content: space-between;
@@ -1182,7 +1186,7 @@ input[type="number"]::-webkit-outer-spin-button {
 	opacity: 1;
 }
 
-.video-player:hover + .video-controls {
+.video-player:hover .video-controls {
 	opacity: 1;
 }
 
@@ -1215,6 +1219,12 @@ input[type="number"]::-webkit-outer-spin-button {
 .fs-button {
 	width: 35px;
 	background: url("../assets/svg/video-controls/controls/fullscreen.svg") no-repeat center;
+}
+
+.fs-exit-button {
+	display: none;
+	width: 35px;
+	background: url("../assets/svg/video-controls/controls/fullscreen_exit.svg") no-repeat center;
 }
 
 .video-button {

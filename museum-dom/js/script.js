@@ -128,18 +128,22 @@ function slide(pos) {
 
 
 const videoPlayer = document.querySelector('.video-view');
+const videoPlayerFS = document.querySelector('.video-player')
+const videoPlayerControls = document.querySelector('.video-controls')
 const videoPlayButton = document.querySelector('.play-button')
 const videoPlayBigButton = document.querySelector('.play-big-button')
 const videoPauseButton = document.querySelector('.pause-button')
 const videoVolumeOffButton = document.querySelector('.volume-toggle')
 const videoVolumeOnButton = document.querySelector('.mute')
 const videoFSButton = document.querySelector('.fs-button')
+const videoFSExitButton = document.querySelector('.fs-exit-button')
 const videoVolumeProgress = document.querySelector('.video-volume-progress')
 const videoTimeProgress = document.querySelector('.video-time-progress')
 const videoSpeedString = document.querySelector('.video-speed-string')
 const videoSpeedContainer = document.querySelector('.video-speed')
 let videoVolume = videoVolumeProgress.value / 100;
 let videoSpeed = 1;
+let videoFullScreen = false;
 
 
 let preventAction = true;
@@ -228,6 +232,27 @@ videoVolumeProgress.addEventListener('change', () => {
 	}
 })
 
+const videoFullScreenOn = () => {
+	videoFullScreen = true;
+	videoFSButton.style.display = 'none';
+	videoFSExitButton.style.display = 'block';
+	videoPlayerControls.style.padding = '0 50px';
+	videoPlayerControls.style.width = 'calc(100% - 100px)';
+	videoPlayerFS.requestFullscreen();
+
+}
+videoFSButton.addEventListener('click', videoFullScreenOn)
+
+const videoFullScreenOff = () => {
+	videoFullScreen = false;
+	videoFSButton.style.display = 'block';
+	videoFSExitButton.style.display = 'none';
+	videoPlayerControls.style.padding = '0 30px';
+	videoPlayerControls.style.width = 'calc(100% - 60px)';
+	document.exitFullscreen();
+}
+videoFSExitButton.addEventListener('click', videoFullScreenOff)
+
 const videoSpeedChange = () => {
 	videoPlayer.playbackRate = videoSpeed;
 	videoSpeedString.textContent = videoSpeed;
@@ -248,6 +273,7 @@ document.addEventListener('keydown', function (e) {
 })
 
 document.addEventListener('keyup', function (e) {
+	// alert(e.code);
 	if (preventAction) {
 		switch (e.code) {
 			case 'Space': videoPlayingToggle(); break;
@@ -255,8 +281,18 @@ document.addEventListener('keyup', function (e) {
 				if (videoVolumeProgress.value == 0) videoVolumeOn()
 				else videoVolumeOff();
 				break;
-			case 'Period': if (videoSpeed < 3) videoSpeed += 0.25; videoSpeedChange(); break;
-			case 'Comma': if (videoSpeed > 0.25) videoSpeed -= 0.25; videoSpeedChange(); break;
+			case 'Period':
+				if (videoSpeed < 3) videoSpeed += 0.25;
+				videoSpeedChange();
+				break;
+			case 'Comma': if (videoSpeed > 0.25) videoSpeed -= 0.25;
+				videoSpeedChange();
+				break;
+			case 'Escape': videoFullScreenOff(); break;
+			case 'KeyF':
+				if (videoFullScreen) videoFullScreenOff();
+				else videoFullScreenOn();
+				break;
 		}
 	}
 });
@@ -520,13 +556,11 @@ const marker5 = new mapboxgl.Marker({ color: 'grey' }).setLngLat([2.3365, 48.862
 
 // *! Self-rating
 
-console.log('Предварительная оценка: 143 балла')
+console.log('Предварительная оценка: 149 баллов')
 console.log('Не выполненные/частично выполненные пункты:')
 console.log('Слайдер в секции Video:')
 console.log('-1 Возможно воспроизведение нескольких видео одновременно')
 console.log('-2 Проигрывание видео в слайде не останавливается при переключении слайдов')
-console.log('Кастомный видеоплеер:')
-console.log('-6 Не реализован режим FullScreen')
 console.log('Анимация в секции Gallery:')
 console.log('-8 Не реализована')
 console.log('Дополнительный функционал:')
