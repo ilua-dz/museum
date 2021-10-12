@@ -114,7 +114,7 @@ function getCursorPosition(event) {
 	let a = compareOverlay.getBoundingClientRect();
 	let pos = event.pageX - a.left;
 	event = event || window.event;
-	pos = pos - window.pageXOffset;
+	pos = pos - scrollX;
 	return pos;
 }
 
@@ -361,11 +361,9 @@ const galleryImgContainer = document.querySelector('.gallery-img-container');
 
 let images = [];
 for (let i = 1; i < 16; i++) {
-	image = `<img src="./assets/img/gallery/gallery${i}.avif" alt="gallery${i}">`
+	image = `<img src="./assets/img/gallery/gallery${i}.avif" alt="gallery${i}" class="gallery-img">`
 	images.push(image)
 }
-
-
 
 let i = 0, arr = [], temp;
 
@@ -385,6 +383,24 @@ for (let i = 1; i < 16; i++) {
 }
 
 galleryImgContainer.innerHTML = randomImages.join('');
+
+const galleryImages = galleryImgContainer.childNodes;
+
+const galleryAnimation = () => {
+	galleryImages.forEach(i => {
+		const imgHeight = i.offsetHeight;
+		const imgOffset = i.getBoundingClientRect().top + scrollY || document.documentElement.scrollTop;
+		let imgPoint = window.innerHeight + window.innerHeight / 1.55;
+		if ((scrollY > (imgOffset - imgPoint)) && (scrollY < (imgOffset + imgHeight))) {
+			i.classList.add('gallery-img-visible')
+		} else {
+			i.classList.remove('gallery-img-visible')
+		}
+	})
+}
+window.addEventListener('scroll', galleryAnimation)
+window.addEventListener('load', galleryAnimation)
+
 
 //*! Tickets
 
@@ -568,12 +584,10 @@ const marker5 = new mapboxgl.Marker({ color: 'grey' }).setLngLat([2.3365, 48.862
 
 // *! Self-rating
 
-console.log('Предварительная оценка: 151 балл')
+console.log('Предварительная оценка: 150 баллов')
 console.log('Не выполненные/частично выполненные пункты:')
 console.log('Слайдер в секции Video:')
 console.log('-1 Возможно воспроизведение нескольких видео одновременно')
-console.log('Анимация в секции Gallery:')
-console.log('-8 Не реализована')
-console.log('Дополнительный функционал:')
+console.log('+1 Дополнительный функционал:')
 console.log('Клавиша подъема на верх страницы, которая всегда сопровождает Вас при навигации по странице')
 console.log('Элементы управления видеоплеером по умолчанию скрыты, но при наведении курсора на плеер они становятся видимыми')
