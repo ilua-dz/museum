@@ -244,12 +244,13 @@ const videoFullScreenOn = () => {
 videoFSButton.addEventListener('click', videoFullScreenOn)
 
 const videoFullScreenOff = () => {
-	videoFullScreen = false;
+	document.exitFullscreen();
 	videoFSButton.style.display = 'block';
 	videoFSExitButton.style.display = 'none';
 	videoPlayerControls.style.padding = '0 30px';
 	videoPlayerControls.style.width = 'calc(100% - 60px)';
-	document.exitFullscreen();
+	videoFullScreen = false;
+
 }
 videoFSExitButton.addEventListener('click', videoFullScreenOff)
 
@@ -269,7 +270,7 @@ videoPauseButton.addEventListener('click', () => videoPauseMode())
 
 
 document.addEventListener('keydown', function (e) {
-	if (preventAction && (e.code == 'Space' || e.code == 'KeyM' || e.code == 'Comma' || e.code == 'Period')) e.preventDefault();
+	if (preventAction && (e.code == 'Space' || e.code == 'Escape' || e.code == 'Comma' || e.code == 'Period')) e.preventDefault();
 })
 
 document.addEventListener('keyup', function (e) {
@@ -288,7 +289,9 @@ document.addEventListener('keyup', function (e) {
 			case 'Comma': if (videoSpeed > 0.25) videoSpeed -= 0.25;
 				videoSpeedChange();
 				break;
-			case 'Escape': videoFullScreenOff(); break;
+			case 'Escape':
+				if (videoFullScreen) videoFullScreenOff();
+				break;
 			case 'KeyF':
 				if (videoFullScreen) videoFullScreenOff();
 				else videoFullScreenOn();
@@ -320,7 +323,9 @@ const videoSlider = new Swiper('.video-slider', {
 );
 
 
-let videoSliderSlide = document.querySelectorAll('.video-slider-slide');
+const videoSliderSlide = document.querySelectorAll('.video-slider-slide');
+const youtubeVideoIframe = document.querySelectorAll('.youtube-video');
+const videoSliderPagination = document.querySelector('.video-slider-pagination-container');
 
 const videoSliderSizing = () => {
 	videoSliderSlide.forEach(i => i.style.height = (i.offsetWidth * 0.561947) + 'px')
@@ -341,6 +346,13 @@ videoSlider.on('slideChange', function () {
 	videoPlayer.setAttribute('poster', videoPostersArray[videoSlider.realIndex])
 	videoPlayer.setAttribute('src', videoSrcArray[videoSlider.realIndex])
 })
+
+const stopYoutubeVideo = () => {
+	youtubeVideoIframe.forEach(i => {
+		i.contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*')
+	});
+}
+videoSliderPagination.addEventListener('click', stopYoutubeVideo);
 
 
 //*! gallery-randomize
@@ -556,15 +568,12 @@ const marker5 = new mapboxgl.Marker({ color: 'grey' }).setLngLat([2.3365, 48.862
 
 // *! Self-rating
 
-console.log('Предварительная оценка: 149 баллов')
+console.log('Предварительная оценка: 151 балл')
 console.log('Не выполненные/частично выполненные пункты:')
 console.log('Слайдер в секции Video:')
 console.log('-1 Возможно воспроизведение нескольких видео одновременно')
-console.log('-2 Проигрывание видео в слайде не останавливается при переключении слайдов')
 console.log('Анимация в секции Gallery:')
 console.log('-8 Не реализована')
 console.log('Дополнительный функционал:')
 console.log('Клавиша подъема на верх страницы, которая всегда сопровождает Вас при навигации по странице')
 console.log('Элементы управления видеоплеером по умолчанию скрыты, но при наведении курсора на плеер они становятся видимыми')
-
-
