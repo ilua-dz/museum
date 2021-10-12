@@ -142,6 +142,16 @@ const videoSpeedContainer = document.querySelector('.video-speed')
 let videoVolume = videoVolumeProgress.value / 100;
 let videoSpeed = 1;
 
+
+let preventAction = true;
+const buyNowButton = document.querySelector('.buy-now');
+const popupCloseButton = document.querySelector('.popup-close')
+const popupOverlayButton = document.querySelector('.popup-overlay')
+const togglePreventAction = () => preventAction = !preventAction;
+buyNowButton.addEventListener('click', togglePreventAction)
+popupCloseButton.addEventListener('click', togglePreventAction)
+popupOverlayButton.addEventListener('click', togglePreventAction)
+
 const changeProgress = (progress) => {
 	let value = progress.value;
 	progress.style.background = `linear-gradient(to right, #710707 0%, #710707 ${value}%, #c4c4c4 ${value}%, #c4c4c4 100%)`
@@ -154,7 +164,6 @@ const videoPlayingMode = () => {
 	videoPlayButton.style.display = 'none';
 	videoPlayBigButton.style.display = 'none';
 	videoPauseButton.style.display = 'block';
-	console.log(videoPlayer.currentTime)
 }
 
 const videoPauseMode = () => {
@@ -224,7 +233,7 @@ const videoSpeedChange = () => {
 	videoPlayer.playbackRate = videoSpeed;
 	videoSpeedString.textContent = videoSpeed;
 	videoSpeedContainer.style.opacity = '1';
-	setTimeout(() => videoSpeedContainer.style.opacity = '0', 1500)
+	setTimeout(() => videoSpeedContainer.style.opacity = '0', 2000)
 }
 
 videoVolumeOffButton.addEventListener('click', () => videoVolumeOff())
@@ -236,19 +245,20 @@ videoPauseButton.addEventListener('click', () => videoPauseMode())
 
 
 document.addEventListener('keydown', function (e) {
-	if (e.code == 'Space' || e.code == 'KeyM' || e.code == 'Comma' || e.code == 'Period') e.preventDefault();
+	if (preventAction && (e.code == 'Space' || e.code == 'KeyM' || e.code == 'Comma' || e.code == 'Period')) e.preventDefault();
 })
 
 document.addEventListener('keyup', function (e) {
-	// alert(e.code);
-	switch (e.code) {
-		case 'Space': videoPlayingToggle(); break;
-		case 'KeyM':
-			if (videoVolumeProgress.value == 0) videoVolumeOn()
-			else videoVolumeOff();
-			break;
-		case 'Period': if (videoSpeed < 3) videoSpeed += 0.25; videoSpeedChange(); break;
-		case 'Comma': if (videoSpeed > 0.25) videoSpeed -= 0.25; videoSpeedChange(); break;
+	if (preventAction) {
+		switch (e.code) {
+			case 'Space': videoPlayingToggle(); break;
+			case 'KeyM':
+				if (videoVolumeProgress.value == 0) videoVolumeOn()
+				else videoVolumeOff();
+				break;
+			case 'Period': if (videoSpeed < 3) videoSpeed += 0.25; videoSpeedChange(); break;
+			case 'Comma': if (videoSpeed > 0.25) videoSpeed -= 0.25; videoSpeedChange(); break;
+		}
 	}
 });
 
