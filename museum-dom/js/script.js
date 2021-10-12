@@ -100,7 +100,6 @@ function slideReady(event) {
 	event.preventDefault();
 	pressed = 1;
 	window.addEventListener("mousemove", slideMove);
-	window.addEventListener("touchmove", slideMove);
 }
 
 function slideMove(event) {
@@ -291,8 +290,21 @@ const videoSliderSizing = () => {
 	videoSliderSlide.forEach(i => i.style.height = (i.offsetWidth * 0.561947) + 'px')
 };
 
-window.addEventListener('resize', () => videoSliderSizing());
-document.addEventListener('DOMContentLoaded', () => videoSliderSizing());
+window.addEventListener('resize', videoSliderSizing);
+document.addEventListener('DOMContentLoaded', videoSliderSizing);
+
+videoSrcArray = [];
+videoPostersArray = [];
+for (let i = 0; i < 5; i++) {
+	videoSrcArray.push(`./assets/video/video${i}.mp4`)
+	videoPostersArray.push(`./assets/video/poster${i}.avif`)
+}
+
+videoSlider.on('slideChange', function () {
+	videoPauseMode();
+	videoPlayer.setAttribute('poster', videoPostersArray[videoSlider.realIndex])
+	videoPlayer.setAttribute('src', videoSrcArray[videoSlider.realIndex])
+})
 
 
 //*! gallery-randomize
@@ -508,14 +520,11 @@ const marker5 = new mapboxgl.Marker({ color: 'grey' }).setLngLat([2.3365, 48.862
 
 // *! Self-rating
 
-console.log('Предварительная оценка: 139 баллов')
+console.log('Предварительная оценка: 143 балла')
 console.log('Не выполненные/частично выполненные пункты:')
 console.log('Слайдер в секции Video:')
 console.log('-1 Возможно воспроизведение нескольких видео одновременно')
-console.log('-2 Проигрывание видео не останавливается при переключении слайдов')
-console.log('-1 Слайдер переключается кликами по стрелкам, но при этом не переключается основное видео')
-console.log('-1 Слайдер переключается кликами буллитам, но при этом не переключается основное видео')
-console.log('-2 Слайдер не влияет на воспроизведение основного видео')
+console.log('-2 Проигрывание видео в слайде не останавливается при переключении слайдов')
 console.log('Кастомный видеоплеер:')
 console.log('-6 Не реализован режим FullScreen')
 console.log('Анимация в секции Gallery:')
