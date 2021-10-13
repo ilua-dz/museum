@@ -144,7 +144,7 @@ const videoSpeedContainer = document.querySelector('.video-speed')
 let videoVolume = videoVolumeProgress.value / 100;
 let videoSpeed = 1;
 let videoFullScreen = false;
-
+let videoIsPlaying = false;
 
 let preventAction = true;
 const buyNowButton = document.querySelector('.buy-now');
@@ -163,6 +163,7 @@ const changeProgress = (progress) => {
 videoTimeProgress.addEventListener('change', () => changeProgress(videoTimeProgress))
 
 const videoPlayingMode = () => {
+	videoIsPlaying = true;
 	videoPlayer.play();
 	videoPlayButton.style.display = 'none';
 	videoPlayBigButton.style.display = 'none';
@@ -170,6 +171,7 @@ const videoPlayingMode = () => {
 }
 
 const videoPauseMode = () => {
+	videoIsPlaying = false;
 	videoPlayer.pause();
 	videoPauseButton.style.display = 'none';
 	videoPlayButton.style.display = 'block';
@@ -187,15 +189,15 @@ const videoPlayingToggle = () => {
 	}
 }
 
-videoPlayer.addEventListener('click', () => videoPlayingToggle())
+videoPlayer.addEventListener('click', videoPlayingToggle)
 
-videoPlayer.addEventListener('ended', () => {
-	videoPauseMode();
-})
+videoPlayer.addEventListener('ended', videoPauseMode)
 
 videoPlayer.addEventListener('timeupdate', () => {
-	videoTimeProgress.value = Math.floor((100 / videoPlayer.duration) * videoPlayer.currentTime);
-	changeProgress(videoTimeProgress);
+	if (videoIsPlaying) {
+		videoTimeProgress.value = Math.floor((100 / videoPlayer.duration) * videoPlayer.currentTime);
+		changeProgress(videoTimeProgress)
+	}
 });
 
 videoTimeProgress.addEventListener('change', () => {
@@ -341,10 +343,13 @@ for (let i = 0; i < 5; i++) {
 	videoPostersArray.push(`./assets/video/poster${i}.avif`)
 }
 
-videoSlider.on('slideChange', function () {
-	videoPauseMode();
-	videoPlayer.setAttribute('poster', videoPostersArray[videoSlider.realIndex])
+videoSlider.on('slideChange', () => {
+	stopYoutubeVideo();
 	videoPlayer.setAttribute('src', videoSrcArray[videoSlider.realIndex])
+	videoPlayer.setAttribute('poster', videoPostersArray[videoSlider.realIndex])
+	videoTimeProgress.value = 0;
+	videoPauseMode();
+	changeProgress(videoTimeProgress)
 })
 
 const stopYoutubeVideo = () => {
@@ -352,7 +357,7 @@ const stopYoutubeVideo = () => {
 		i.contentWindow.postMessage('{"event":"command","func":"' + 'stopVideo' + '","args":""}', '*')
 	});
 }
-videoSliderPagination.addEventListener('click', stopYoutubeVideo);
+// videoSliderPagination.addEventListener('click', stopYoutubeVideo);
 
 
 //*! gallery-randomize
